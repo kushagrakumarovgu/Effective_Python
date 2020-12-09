@@ -1,7 +1,7 @@
 import csv
 
 cost = 0
-with open("inventory.csv","r") as csv_file:
+with open("inventory.csv","rt") as csv_file:
     csv_reader = csv.reader(csv_file, delimiter=',')
     for idx,row in enumerate(csv_reader):
         if idx != 0:
