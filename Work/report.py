@@ -27,11 +27,8 @@ def read_prices(file_name):
         rows = csv.reader(FH,delimiter=',')
         for row in rows:
             try:
-                print(row)
                 prices[row[0]] = float(row[1])
-            except ValueError:
-                print("Bad row",row)
-            except IndexError:
+            except (ValueError,IndexError):
                 print("Bad row",row)
 
     return prices
