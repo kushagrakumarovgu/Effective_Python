@@ -12,7 +12,7 @@ def  read_inventory(file_name):
                 name = row[0]
                 quant = int(row[1])
                 price = float(row[2])
-                item_list.append((name,quant,price))
+                item_list.append({'name': name ,'quant':quant,'price':price})
             except ValueError:
                 print("Bad row",row)
 
