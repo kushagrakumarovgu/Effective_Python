@@ -1,5 +1,6 @@
 import csv
 import sys
+from pprint import pprint
 
 
 def  read_inventory(file_name):
@@ -9,10 +10,11 @@ def  read_inventory(file_name):
         headers = next(rows)
         for row in rows:
             try:
-                name = row[0]
-                quant = int(row[1])
-                price = float(row[2])
-                item_list.append({'name': name ,'quant':quant,'price':price})
+                prod = { 'name' : row[0],
+                         'quant' : int(row[1]),
+                         'price': float(row[2]) 
+                        }
+                item_list.append(prod)
             except ValueError:
                 print("Bad row",row)
 
@@ -28,4 +30,4 @@ except IndexError:
 
 items = read_inventory(file_name)
 
-print(items)
+pprint(items)
