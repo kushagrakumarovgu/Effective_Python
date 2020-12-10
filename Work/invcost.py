@@ -17,10 +17,11 @@ def inventory_cost(file_name):
                 print('Bad Error: {}'.format(row))
     return total
 
-if len(sys.argv) == 2:
+try:
     file_name = sys.argv[1]
-else:
+except IndexError:
     file_name = 'Data\inventory.csv'
+     
 
 cost = inventory_cost(file_name)
 print("Total cost: ",cost)
