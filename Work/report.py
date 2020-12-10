@@ -21,7 +21,21 @@ def  read_inventory(file_name):
         return item_list
 
             
+def read_prices(file_name):
+    prices = {}
+    with open(file_name,"rt") as FH:
+        rows = csv.reader(FH,delimiter=',')
+        for row in rows:
+            try:
+                print(row)
+                prices[row[0]] = float(row[1])
+            except ValueError:
+                print("Bad row",row)
+            except IndexError:
+                print("Bad row",row)
 
+    return prices
+                
 
 try:
     file_name = sys.argv[1]
@@ -31,3 +45,6 @@ except IndexError:
 items = read_inventory(file_name)
 
 pprint(items)
+
+prices = read_prices('Data/prices.csv')
+pprint(prices)
