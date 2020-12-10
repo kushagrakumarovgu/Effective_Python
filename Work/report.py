@@ -39,9 +39,18 @@ try:
 except IndexError:
     file_name = "Data/inventory.csv"
 
-items = read_inventory(file_name)
+products = read_inventory(file_name)
+pprint(products)
 
-pprint(items)
+newprice_list = read_prices('Data/prices.csv')
+pprint(newprice_list)
+price = 0.0
+latest_price = 0.0
+for prod in products:
+    price += prod['quant'] * prod['price'] 
+    latest_price += prod['quant'] * newprice_list[prod['name']]
 
-prices = read_prices('Data/prices.csv')
-pprint(prices)
+print("Total Gain: {}".format((price - latest_price)))
+
+
+
