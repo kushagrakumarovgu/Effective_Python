@@ -64,7 +64,15 @@ print("Total Gain: {}".format((price - latest_price)))
 
 report = make_report(products,newprice_list)
 
-pprint(report)
+header = ('Name','Quantity','Price','Change')
+width = 10
+n_cols = len(header)
+print('%10s %10s %10s %10s' % header)
+dashed_line = f"{'-' * 10} " * 4
+print(dashed_line)
+for name,quant,price,change in report:
+    print(f'{name:>10s} {quant:>10d} {price:>10f} {change:>10f}')
+
 
 
 
