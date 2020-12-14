@@ -32,6 +32,20 @@ def read_prices(file_name):
                 print("Bad row",row)
 
     return prices
+
+def make_report(item_list,newprice_list):
+    report = list()
+    rows = ()
+    for prod in item_list:
+        name = prod['name']
+        quant = prod['quant']
+        latest_price = newprice_list[name]
+        change = prod['price'] - latest_price
+        report.append( (name,quant,latest_price,change) )
+
+    return report
+
+    
                 
 
 try:
@@ -51,6 +65,10 @@ for prod in products:
     latest_price += prod['quant'] * newprice_list[prod['name']]
 
 print("Total Gain: {}".format((price - latest_price)))
+
+report = make_report(products,newprice_list)
+
+pprint(report)
 
 
 
