@@ -35,7 +35,6 @@ def read_prices(file_name):
 
 def make_report(item_list,newprice_list):
     report = list()
-    rows = ()
     for prod in item_list:
         name = prod['name']
         quant = prod['quant']
@@ -44,9 +43,6 @@ def make_report(item_list,newprice_list):
         report.append( (name,quant,latest_price,change) )
 
     return report
-
-    
-                
 
 try:
     file_name = sys.argv[1]
