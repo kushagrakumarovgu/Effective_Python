@@ -68,10 +68,16 @@ header = ('Name','Quantity','Price','Change')
 width = 10
 n_cols = len(header)
 print('%10s %10s %10s %10s' % header)
-dashed_line = f"{'-' * 10} " * 4
+dashed_line = f"{'-' * width} " * n_cols
 print(dashed_line)
+rupee_sym = '\u20B9'
 for name,quant,price,change in report:
-    print(f'{name:>10s} {quant:>10d} {price:>10f} {change:>10f}')
+    price = str(rupee_sym) + str(price)
+    print(f'{name:>10s} {quant:>10d} {price:>10s} {change:>10f}')
+
+
+print(u'\u20B9')
+#print(x)
 
 
 
