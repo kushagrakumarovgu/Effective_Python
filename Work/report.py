@@ -8,7 +8,7 @@ def  read_inventory(file_name):
     with open(file_name) as FH:
         rows = csv.reader(FH,delimiter=',')
         headers = next(rows)
-        for row in rows:
+        for line_no,row in enumerate(rows,start=1):
             try:
                 prod = { 'name' : row[0],
                          'quant' : int(row[1]),
@@ -16,7 +16,7 @@ def  read_inventory(file_name):
                         }
                 item_list.append(prod)
             except ValueError:
-                print("Bad row",row)
+                print("{} Bad row: {}".format(line_no,row))
 
         return item_list
 
@@ -76,8 +76,8 @@ for name,quant,price,change in report:
     print(f'{name:>10s} {quant:>10d} {price:>10s} {change:>10f}')
 
 
-print(u'\u20B9')
-#print(x)
+
+
 
 
 
