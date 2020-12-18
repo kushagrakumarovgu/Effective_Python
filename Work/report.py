@@ -9,12 +9,11 @@ def  read_inventory(file_name):
         rows = csv.reader(FH,delimiter=',')
         headers = next(rows)
         for line_no,row in enumerate(rows,start=1):
+            row_dict = dict(zip(headers,row))
             try:
-                prod = { 'name' : row[0],
-                         'quant' : int(row[1]),
-                         'price': float(row[2]) 
-                        }
-                item_list.append(prod)
+                row_dict['quant'] = int(row_dict['quant'])
+                row_dict['price'] = float(row_dict['price'])
+                item_list.append(row_dict)
             except ValueError:
                 print("{} Bad row: {}".format(line_no,row))
 
