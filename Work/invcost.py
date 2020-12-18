@@ -8,13 +8,13 @@ def inventory_cost(file_name):
         #headers = next(FH) - NOTE: the headers will be string.
         list_of_rows = csv.reader(FH, delimiter=',')
         headers = next(list_of_rows) # skip and store the headers. Also, headers will be a list containing each column names.
-        for row in list_of_rows:
+        for line_no,row in enumerate(list_of_rows,start=1):
             try:
                 quant = int(row[1])
                 price = float(row[2])
                 total += quant * price
             except ValueError:           # ValueError is name of the exception due to file missing.csv
-                print('Bad Error: {}'.format(row))
+                print('{} Bad Row: {}'.format(line_no,row))
     return total
 
 try:
