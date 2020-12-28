@@ -55,19 +55,24 @@ def print_report(report):
         price = str(rupee_sym) + str(price)
         print(f'{name:>10s} {quant:>10d} {price:>10s} {change:>10f}')
 
+
+def inventory_report(inventory_filename,prices_filename):
+    products = read_inventory(inventory_filename)
+    #pprint(products)
+    new_prices = read_prices('Data/prices.csv')
+    report = make_report(products,new_prices)
+    print_report(report)
+
 try:
-    file_name = sys.argv[1]
+    inventory_filename = sys.argv[1]
+    prices_filename = sys.argv[2]
 except IndexError:
-    file_name = "Data/inventory.csv"
+    inventory_filename = "Data/inventory.csv"
+    prices_filename = 'Data/prices.csv'
 
-products = read_inventory(file_name)
-pprint(products)
+inventory_report(inventory_filename,prices_filename)
 
-new_prices = read_prices('Data/prices.csv')
 
-report = make_report(products,new_prices)
-
-print_report(report)
 
 
 
