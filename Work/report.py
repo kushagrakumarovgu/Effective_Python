@@ -43,11 +43,6 @@ def make_report(item_list,newprice_list):
 
     return report
 
-try:
-    file_name = sys.argv[1]
-except IndexError:
-    file_name = "Data/inventory.csv"
-
 def print_report(report):
     header = ('Name','Quantity','Price','Change')
     width = 10
@@ -60,12 +55,17 @@ def print_report(report):
         price = str(rupee_sym) + str(price)
         print(f'{name:>10s} {quant:>10d} {price:>10s} {change:>10f}')
 
+try:
+    file_name = sys.argv[1]
+except IndexError:
+    file_name = "Data/inventory.csv"
+
 products = read_inventory(file_name)
 pprint(products)
 
-newprice_list = read_prices('Data/prices.csv')
+new_prices = read_prices('Data/prices.csv')
 
-report = make_report(products,newprice_list)
+report = make_report(products,new_prices)
 
 print_report(report)
 
