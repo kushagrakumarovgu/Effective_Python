@@ -48,31 +48,26 @@ try:
 except IndexError:
     file_name = "Data/inventory.csv"
 
+def print_report(report):
+    header = ('Name','Quantity','Price','Change')
+    width = 10
+    n_cols = len(header)
+    print('%10s %10s %10s %10s' % header)
+    dashed_line = f"{'-' * width} " * n_cols
+    print(dashed_line)
+    rupee_sym = '\u20B9'
+    for name,quant,price,change in report:
+        price = str(rupee_sym) + str(price)
+        print(f'{name:>10s} {quant:>10d} {price:>10s} {change:>10f}')
+
 products = read_inventory(file_name)
 pprint(products)
 
 newprice_list = read_prices('Data/prices.csv')
-pprint(newprice_list)
-price = 0.0
-latest_price = 0.0
-for prod in products:
-    price += prod['quant'] * prod['price'] 
-    latest_price += prod['quant'] * newprice_list[prod['name']]
-
-print("Total Gain: {}".format((price - latest_price)))
 
 report = make_report(products,newprice_list)
 
-header = ('Name','Quantity','Price','Change')
-width = 10
-n_cols = len(header)
-print('%10s %10s %10s %10s' % header)
-dashed_line = f"{'-' * width} " * n_cols
-print(dashed_line)
-rupee_sym = '\u20B9'
-for name,quant,price,change in report:
-    price = str(rupee_sym) + str(price)
-    print(f'{name:>10s} {quant:>10d} {price:>10s} {change:>10f}')
+print_report(report)
 
 
 
