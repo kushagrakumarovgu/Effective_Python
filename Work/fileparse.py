@@ -4,18 +4,17 @@ def parse_csv(filename,select=None,types=None,has_headers=True):
     '''
     parse a csv file and return list of record.
     '''
-    records = []
+      
     indices = []
     with open(filename) as FH:
         rows = csv.reader(FH)
-        
+
         if has_headers: 
             headers = next(rows)
             indices = [ headers.index(col) for col in select]
             headers = select
-        else:
-            indices = []
-
+        
+        records = []
         for row in rows:
             if not row:   # skip rows with no data
                 continue
