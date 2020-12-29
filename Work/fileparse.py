@@ -7,8 +7,9 @@ def parse_csv(filename,select=None,types=None,has_headers=True):
     records = []
     indices = []
     with open(filename) as FH:
-        rows = csv.reader(FH) 
-        headers = next(rows)
+        rows = csv.reader(FH)
+        if has_headers: 
+            headers = next(rows)
         if select:
             indices = [ headers.index(col) for col in select]
             headers = select
@@ -26,10 +27,11 @@ def parse_csv(filename,select=None,types=None,has_headers=True):
                 row = [ func(val) for func,val in zip(types,row)] 
             
             if has_headers:
-                record = dict(zip(headers,row))
-                records.append(record)
+                record = dict(zip(headers,row))    
             else:
                 record = tuple(row)
-                records.append(record)
+            
+            records.append(record)
+            
     return records
 
