@@ -1,18 +1,20 @@
 import csv
 
-def parse_csv(filename,select=None,types=None,has_headers=True):
+def parse_csv(filename,select=None,types=None,has_headers=True,delimiter=','):
     '''
     parse a csv file and return list of record.
     '''
-      
+
     indices = []
     with open(filename) as FH:
-        rows = csv.reader(FH)
+        rows = csv.reader(FH,delimiter=delimiter)
 
         if has_headers: 
             headers = next(rows)
-            indices = [ headers.index(col) for col in select]
-            headers = select
+        
+            if select:
+                indices = [ headers.index(col) for col in select]
+                headers = select
         
         records = []
         for row in rows:
