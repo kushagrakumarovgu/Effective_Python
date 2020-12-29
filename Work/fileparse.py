@@ -1,6 +1,6 @@
 import csv
 
-def parse_csv(filename,select=None,types=None):
+def parse_csv(filename,select=None,types=None,has_headers=True):
     '''
     parse a csv file and return list of record.
     '''
@@ -25,7 +25,11 @@ def parse_csv(filename,select=None,types=None):
             if types:
                 row = [ func(val) for func,val in zip(types,row)] 
             
-            record = dict(zip(headers,row))
-            records.append(record)
+            if has_headers:
+                record = dict(zip(headers,row))
+                records.append(record)
+            else:
+                record = tuple(row)
+                records.append(record)
     return records
 
