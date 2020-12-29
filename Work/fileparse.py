@@ -8,9 +8,9 @@ def parse_csv(filename,select=None,types=None,has_headers=True):
     indices = []
     with open(filename) as FH:
         rows = csv.reader(FH)
+        
         if has_headers: 
             headers = next(rows)
-        if select:
             indices = [ headers.index(col) for col in select]
             headers = select
         else:
@@ -32,6 +32,6 @@ def parse_csv(filename,select=None,types=None,has_headers=True):
                 record = tuple(row)
             
             records.append(record)
-            
+
     return records
 
