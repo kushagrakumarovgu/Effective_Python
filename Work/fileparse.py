@@ -19,7 +19,7 @@ def parse_csv(filename,select=None,types=None,has_headers=True,delimiter=','):
                 headers = select     
         
         records = []
-        for row in rows:
+        for line_no,row in enumerate(rows,start=1):
             if not row:   # skip rows with no data
                 continue
             # Filter the row if specific columns were selected.
@@ -27,7 +27,12 @@ def parse_csv(filename,select=None,types=None,has_headers=True,delimiter=','):
                 row = [ row[index] for index in indices]
 
             if types:
-                row = [ func(val) for func,val in zip(types,row)] 
+                try:
+                    row = [ func(val) for func,val in zip(types,row)] 
+                except ValueError as e:
+                    print("Row{}: Couldn't convert {}".format(line_no,row))
+                    print("Row{}: {}".format(line_no,e))
+                    continue
             
             if has_headers:
                 record = dict(zip(headers,row))
