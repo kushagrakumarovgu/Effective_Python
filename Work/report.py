@@ -1,36 +1,16 @@
 import csv
 import sys
 from pprint import pprint
+from fileparse import parse_csv
 
 
 def  read_inventory(file_name):
-    item_list = list()
-    with open(file_name) as FH:
-        rows = csv.reader(FH,delimiter=',')
-        headers = next(rows)
-        for line_no,row in enumerate(rows,start=1):
-            row_dict = dict(zip(headers,row))
-            try:
-                row_dict['quant'] = int(row_dict['quant'])
-                row_dict['price'] = float(row_dict['price'])
-                item_list.append(row_dict)
-            except ValueError:
-                print("{} Bad row: {}".format(line_no,row))
 
-        return item_list
-
-            
+    return parse_csv(file_name,select=['name','quant','price'],types=[str,int,float])
+                
 def read_prices(file_name):
-    prices = {}
-    with open(file_name,"rt") as FH:
-        rows = csv.reader(FH,delimiter=',')
-        for row in rows:
-            try:
-                prices[row[0]] = float(row[1])
-            except (ValueError,IndexError):
-                print("Bad row",row)
 
-    return prices
+    return dict( parse_csv(file_name,types=[str,float],has_headers=False) )
 
 def make_report(item_list,newprice_list):
     report = list()
