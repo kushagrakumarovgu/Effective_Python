@@ -1,5 +1,4 @@
 import csv
-import sys
 from pprint import pprint
 from fileparse import parse_csv
 
@@ -43,14 +42,18 @@ def inventory_report(inventory_filename,prices_filename):
     report = make_report(products,new_prices)
     print_report(report)
 
-try:
-    inventory_filename = sys.argv[1]
-    prices_filename = sys.argv[2]
-except IndexError:
-    inventory_filename = "Data/inventory.csv"
-    prices_filename = 'Data/prices.csv'
+def main(argv):
 
-inventory_report(inventory_filename,prices_filename)
+    if len(argv) != 3:
+        raise SystemExit(f'Usage: {argv[0]} ' 'invfile pricefile')
+
+    inventory_filename = argv[1]
+    prices_filename = argv[2]
+    inventory_report(inventory_filename,prices_filename)
+
+if __name__ == '__main__':
+    import sys
+    main(sys.argv)
 
 
 

@@ -1,6 +1,4 @@
-
 import csv
-import sys
 from report import read_inventory
 
 def inventory_cost(file_name):
@@ -11,12 +9,15 @@ def inventory_cost(file_name):
 
     return total
 
-try:
-    file_name = sys.argv[1]
-except IndexError:
-    file_name = 'Data\inventory.csv'
+def main(argv):
+    if len(argv) != 2:
+        raise SystemExit(f'Usage: {argv[0]} ' 'invfile')
 
-cost = inventory_cost(file_name)
-print("Total cost: ",cost)
+    filename = argv[1]    
+    cost = inventory_cost(filename)
+    print("Total cost: ",cost)
 
+if __name__ == '__main__':
+    import sys
+    main(sys.argv)
 
