@@ -5,11 +5,12 @@ from fileparse import parse_csv
 
 def  read_inventory(file_name):
 
-    return parse_csv(file_name,select=['name','quant','price'],types=[str,int,float])
+    with open(file_name) as FH:
+        return parse_csv(FH,select=['name','quant','price'],types=[str,int,float])
                 
 def read_prices(file_name):
-
-    return dict( parse_csv(file_name,types=[str,float],has_headers=False) )
+    with open(file_name) as FH:
+        return dict( parse_csv(FH,types=[str,float],has_headers=False) )
 
 def make_report(item_list,newprice_list):
     report = list()
