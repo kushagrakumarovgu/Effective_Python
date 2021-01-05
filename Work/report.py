@@ -1,12 +1,16 @@
 import csv
 from pprint import pprint
 from fileparse import parse_csv
+from product import Product
 
 
 def  read_inventory(file_name):
 
     with open(file_name) as FH:
-        return parse_csv(FH,select=['name','quant','price'],types=[str,int,float])
+        invdicts = parse_csv(FH,select=['name','quant','price'],types=[str,int,float])
+    
+    inventory = [ Product(p['name'],p['quant'],p['price']) for p in invdicts]
+    return inventory
                 
 def read_prices(file_name):
     with open(file_name) as FH:
@@ -15,10 +19,10 @@ def read_prices(file_name):
 def make_report(item_list,newprice_list):
     report = list()
     for prod in item_list:
-        name = prod['name']
-        quant = prod['quant']
+        name = prod.name
+        quant = prod.quant
         latest_price = newprice_list[name]
-        change = prod['price'] - latest_price
+        change = prod.price - latest_price
         report.append( (name,quant,latest_price,change) )
 
     return report
