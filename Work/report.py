@@ -2,6 +2,7 @@ import csv
 from pprint import pprint
 from fileparse import parse_csv
 from product import Product
+from tableformat import Tableformatter
 
 
 def  read_inventory(file_name):
@@ -27,17 +28,19 @@ def make_report(item_list,newprice_list):
 
     return report
 
-def print_report(report):
+def print_report(report,formatter):
     header = ('Name','Quantity','Price','Change')
-    width = 10
-    n_cols = len(header)
-    print('%10s %10s %10s %10s' % header)
-    dashed_line = f"{'-' * width} " * n_cols
-    print(dashed_line)
+    formatter.headings(header)
+    # width = 10
+    # n_cols = len(header)
+    # print('%10s %10s %10s %10s' % header)
+    # dashed_line = f"{'-' * width} " * n_cols
+    # print(dashed_line)
     rupee_sym = '\u20B9'
     for name,quant,price,change in report:
         price = str(rupee_sym) + str(price)
-        print(f'{name:>10s} {quant:>10d} {price:>10s} {change:>10f}')
+        row_data = [name, str(quant), f'{price:>0.2f}',f'{change:>0.2f}']
+        formatter.row[row_data]
 
 
 def inventory_report(inventory_filename,prices_filename):
@@ -45,7 +48,8 @@ def inventory_report(inventory_filename,prices_filename):
     #pprint(products)
     new_prices = read_prices('Data/prices.csv')
     report = make_report(products,new_prices)
-    print_report(report)
+    formatter = Tableformatter()
+    print_report(report,formatter)
 
 def main(argv):
 
