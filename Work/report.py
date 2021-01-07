@@ -2,7 +2,8 @@ import csv
 from pprint import pprint
 from fileparse import parse_csv
 from product import Product
-from tableformat import Tableformatter
+from tableformat import Tableformatter,TextTableFormatter,CSVTableFormatter,HTMLTableFormatter
+
 
 
 def  read_inventory(file_name):
@@ -31,24 +32,27 @@ def make_report(item_list,newprice_list):
 def print_report(report,formatter):
     header = ('Name','Quantity','Price','Change')
     formatter.headings(header)
-    # width = 10
-    # n_cols = len(header)
-    # print('%10s %10s %10s %10s' % header)
-    # dashed_line = f"{'-' * width} " * n_cols
-    # print(dashed_line)
     rupee_sym = '\u20B9'
     for name,quant,price,change in report:
-        price = str(rupee_sym) + str(price)
-        row_data = [name, str(quant), f'{price:>0.2f}',f'{change:>0.2f}']
-        formatter.row[row_data]
+        price = str(rupee_sym) + f'{price:0.2f}'
+        row_data = [name, str(quant), price,f'{change:>0.2f}']
+        formatter.row(row_data)
 
 
-def inventory_report(inventory_filename,prices_filename):
+def inventory_report(inventory_filename,prices_filename,fmt='txt'):
     products = read_inventory(inventory_filename)
-    #pprint(products)
     new_prices = read_prices('Data/prices.csv')
     report = make_report(products,new_prices)
-    formatter = Tableformatter()
+
+    if fmt == 'txt':
+        formatter = TextTableFormatter()
+    elif fmt == 'csv':
+        formatter = CSVTableFormatter()
+    elif fmt == 'html':
+        # TODO
+        formatter = HTMLTableFormatter()
+    else:
+        raise RuntimeError(f'Unknow format {fmt}')
     print_report(report,formatter)
 
 def main(argv):
