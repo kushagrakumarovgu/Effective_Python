@@ -48,12 +48,18 @@ def inventory_report(inventory_filename,prices_filename,fmt='txt'):
 
 def main(argv):
 
-    if len(argv) != 3:
+    if len(argv) < 3:
         raise SystemExit(f'Usage: {argv[0]} ' 'invfile pricefile')
 
     inventory_filename = argv[1]
     prices_filename = argv[2]
-    inventory_report(inventory_filename,prices_filename)
+
+    try:
+        fmt = argv[3]
+    except IndexError:
+        fmt = 'txt'
+
+    inventory_report(inventory_filename,prices_filename,fmt)
 
 if __name__ == '__main__':
     import sys
