@@ -2,7 +2,7 @@ import csv
 from pprint import pprint
 from fileparse import parse_csv
 from product import Product
-from tableformat import Tableformatter,TextTableFormatter,CSVTableFormatter,HTMLTableFormatter
+from tableformat import create_formatter
 
 
 
@@ -43,16 +43,7 @@ def inventory_report(inventory_filename,prices_filename,fmt='txt'):
     products = read_inventory(inventory_filename)
     new_prices = read_prices('Data/prices.csv')
     report = make_report(products,new_prices)
-
-    if fmt == 'txt':
-        formatter = TextTableFormatter()
-    elif fmt == 'csv':
-        formatter = CSVTableFormatter()
-    elif fmt == 'html':
-        # TODO
-        formatter = HTMLTableFormatter()
-    else:
-        raise RuntimeError(f'Unknow format {fmt}')
+    formatter = create_formatter(fmt)
     print_report(report,formatter)
 
 def main(argv):
