@@ -48,16 +48,12 @@ def inventory_report(inventory_filename,prices_filename,fmt='txt'):
 
 def main(argv):
 
-    if len(argv) < 3:
-        raise SystemExit(f'Usage: {argv[0]} ' 'invfile pricefile')
+    if len(argv) != 4:
+        raise SystemExit(f'Usage: {argv[0]} ' 'invfile pricefile format')
 
     inventory_filename = argv[1]
     prices_filename = argv[2]
-
-    try:
-        fmt = argv[3]
-    except IndexError:
-        fmt = 'txt'
+    fmt = argv[3]
 
     inventory_report(inventory_filename,prices_filename,fmt)
 
