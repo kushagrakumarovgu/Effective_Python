@@ -51,7 +51,9 @@ class HTMLTableFormatter(Tableformatter):
         pass
 
 
+
 def create_formatter(name):
+
     if name == 'txt':
         formatter = TextTableFormatter()
     elif name == 'csv':
@@ -63,3 +65,15 @@ def create_formatter(name):
         raise RuntimeError(f'Unknow format {name}')
 
     return formatter
+
+
+
+def print_table(objects,columns,formatter):
+    formatter.headings(columns)
+
+    for obj in objects:
+        row_data = list()
+        for col in columns:
+            row_data.append(str(getattr(obj,col)))
+        formatter.row(row_data)
+    
