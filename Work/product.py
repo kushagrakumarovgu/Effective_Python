@@ -11,6 +11,17 @@ class Product:
         self.price = price
 
     @property
+    def quant(self):
+        return self._quant
+
+    @quant.setter
+    def quant(self,value):
+        if not isinstance(value,int):
+            raise TypeError(f'Expected an integer')
+        self._quant = value
+
+
+    @property
     def cost(self):
         '''
         Return the cost of the product.
@@ -27,3 +38,5 @@ class Product:
         #return f'Product("{self.name}",{self.quant},{self.price:0.2f})'
         # !r gives the internal representation of the variable in f string.
         return f'Product({self.name!r},{self.quant!r},{self.price!r})'
+
+    
