@@ -1,11 +1,12 @@
 import csv
 from report import read_inventory
 
+
 def inventory_cost(file_name):
     total = 0.0
     inventory = read_inventory(file_name)
     for prod in inventory:
-        total += prod.quant * prod.price
+        total += prod.cost
 
     return total
 
