@@ -50,6 +50,8 @@ class HTMLTableFormatter(Tableformatter):
     def row(self,row_data):
         pass
 
+class FormatError(Exception):
+    pass
 
 
 def create_formatter(name):
@@ -62,7 +64,7 @@ def create_formatter(name):
         # TODO
         formatter = HTMLTableFormatter()
     else:
-        raise RuntimeError(f'Unknow format {name}')
+        raise FormatError(f'Unknow table format {name}')
 
     return formatter
 
