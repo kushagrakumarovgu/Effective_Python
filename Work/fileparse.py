@@ -1,9 +1,15 @@
 import csv
 
+<<<<<<< HEAD
 def parse_csv(lines,select=None,types=None,has_headers=True,delimiter=',',silence_errors=False):
     '''
     parse a csv file and return list of record.
 
+=======
+def parse_csv(filename,select=None,types=None,has_headers=True,delimiter=','):
+    '''
+    parse a csv file and return list of record.
+>>>>>>> parent of dc1c5e6... Added silence_errors functionality.
     '''
     indices = []
     if select and not has_headers:
@@ -37,6 +43,20 @@ def parse_csv(lines,select=None,types=None,has_headers=True,delimiter=',',silenc
                     print("Row{}: Couldn't convert {}".format(line_no,row))
                     print("Row{}: {}".format(line_no,e))
                 continue
+<<<<<<< HEAD
+=======
+            # Filter the row if specific columns were selected.
+            if indices:
+                row = [ row[index] for index in indices]
+
+            if types:
+                try:
+                    row = [ func(val) for func,val in zip(types,row)] 
+                except ValueError as e:
+                    print("Row{}: Couldn't convert {}".format(line_no,row))
+                    print("Row{}: {}".format(line_no,e))
+                    continue
+>>>>>>> parent of dc1c5e6... Added silence_errors functionality.
             
         if has_headers:
             record = dict(zip(headers,row))
