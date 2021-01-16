@@ -3,12 +3,9 @@ from report import read_inventory
 
 
 def inventory_cost(file_name):
-    total = 0.0
     inventory = read_inventory(file_name)
-    for prod in inventory:
-        total += prod.cost
 
-    return total
+    return inventory.total_cost
 
 def main(argv):
     if len(argv) != 2:

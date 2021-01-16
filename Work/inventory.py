@@ -3,6 +3,10 @@
 class Inventory:
     def __init__(self,products):
         self._products = products
+
+    
+    def __iter__(self):
+        return iter(self._products)
         
     
     @property
