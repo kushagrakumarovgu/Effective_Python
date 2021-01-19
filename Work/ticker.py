@@ -1,6 +1,11 @@
 import csv
 from follow import follow
+from report import read_inventory
 
+def filter_names(rows,names):
+    for row in rows:
+        if row['name'] in names:
+            yield row
 
 def convert_types(rows,types):
     for row in rows:
@@ -22,8 +27,12 @@ def parse_product_data(lines):
     return rows
 
 if __name__ == '__main__':
+    inventory = read_inventory('Data/inventory.csv')
+
     lines = follow('Data/marketlog.csv')
     rows = parse_product_data(lines)
+
+    rows = filter_names(rows,inventory)
     
     for row in rows:
         print(row)
