@@ -7,6 +7,17 @@ class Inventory:
     
     def __iter__(self):
         return iter(self._products)
+
+    
+    def __len__(self):
+        return len(self._products)
+    
+    def __getitem__(self,index):
+        return self._products[index]
+
+    def __contains__(self,name):
+        return any([ p.name == name for p in self._products])
+
         
     
     @property
