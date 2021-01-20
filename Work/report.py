@@ -12,7 +12,7 @@ def  read_inventory(file_name):
     with open(file_name) as FH:
         invdicts = parse_csv(FH,select=['name','quant','price'],types=[str,int,float])
     
-    inventory = [ Product(p['name'],p['quant'],p['price']) for p in invdicts]
+    inventory = [ Product(**p) for p in invdicts]
     
     return Inventory(inventory)
                 
