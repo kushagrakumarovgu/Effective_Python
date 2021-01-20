@@ -16,13 +16,13 @@ class Inventory:
         return self._products[index]
 
     def __contains__(self,name):
-        return any([ p.name == name for p in self._products])
+        return any( p.name == name for p in self._products )
 
         
     
     @property
     def total_cost(self):
-        return sum([ p.cost for p in self._products])
+        return sum( p.cost for p in self._products )
 
     
     def tabulate_units(self):
