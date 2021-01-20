@@ -22,8 +22,17 @@ def select_columns(rows,indices):
 def parse_product_data(lines):
     rows = csv.reader(lines)
     rows = select_columns(rows,[0,1,4])
+    # Equivalent Generator expression below select_columns.
+    #rows = ( [row[idx] for idx in [0,1,4]] for row in rows )
+
     rows = convert_types(rows,[str,float,float])
-    rows = make_dicts(rows,['name','price','change'])
+    # Equivalent Generator expression below for convert_types
+    #rows = ( [ func(val) for func, val in zip([str,float,float],row) ] for row in rows )
+
+    headers = ['name','price','change'] 
+    #rows = make_dicts(rows,headers)
+    rows = ( dict(zip(headers,row)) for row in rows )
+
     return rows
 
 if __name__ == '__main__':
@@ -32,7 +41,8 @@ if __name__ == '__main__':
     lines = follow('Data/marketlog.csv')
     rows = parse_product_data(lines)
 
-    rows = filter_names(rows,inventory)
+    #rows = filter_names(rows,inventory)
+    rows = ( row for row in rows if row['name'] in inventory )
     
     for row in rows:
         print(row)
