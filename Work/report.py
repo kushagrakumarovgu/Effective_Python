@@ -7,14 +7,10 @@ from inventory import Inventory
 
 
 
-def  read_inventory(file_name):
+def  read_inventory(file_name,**opts):
 
-    with open(file_name) as FH:
-        invdicts = parse_csv(FH,select=['name','quant','price'],types=[str,int,float])
-    
-    inventory = [ Product(**p) for p in invdicts]
-    
-    return Inventory(inventory)
+    with open(file_name) as FH:       
+        return Inventory.from_csv(FH,**opts)
                 
 def read_prices(file_name):
     with open(file_name) as FH:

@@ -1,8 +1,11 @@
 
 
+import product
+from fileparse import parse_csv
+
 class Inventory:
-    def __init__(self,products):
-        self._products = products
+    def __init__(self):
+        self._products = []
 
     
     def __iter__(self):
@@ -18,6 +21,29 @@ class Inventory:
     def __contains__(self,name):
         return any( p.name == name for p in self._products )
 
+    def append(self,prod):
+        if isinstance(prod,product.Product):
+            self._products.append(prod)
+        else:
+            raise TypeError(f'Expected Product object')
+
+    @classmethod
+    def from_csv(cls,lines,**opts):
+        self = cls()
+        invdicts = parse_csv(lines,
+                            select=['name','quant','price'],
+                            types=[str,int,float],
+                            **opts)
+
+        for p in invdicts: 
+            self.append(product.Product(**p))
+    
+        return self
+
+
+        
+
+
         
     
     @property
@@ -32,3 +58,5 @@ class Inventory:
             t_units[p.name] = t_units[p.name] + p.quant
 
         return t_units
+
+
