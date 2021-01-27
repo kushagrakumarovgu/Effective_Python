@@ -55,6 +55,11 @@ def main(argv):
 
     inventory_report(inventory_filename,prices_filename,fmt)
 
+import logging
+logging.basicConfig(filename = 'report.log',
+                    level = logging.DEBUG,
+                    filemode = 'a')
+
 if __name__ == '__main__':
     import sys
     main(sys.argv)

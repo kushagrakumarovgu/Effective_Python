@@ -39,12 +39,6 @@ class Inventory:
             self.append(product.Product(**p))
     
         return self
-
-
-        
-
-
-        
     
     @property
     def total_cost(self):
